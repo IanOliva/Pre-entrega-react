@@ -6,6 +6,7 @@ import AcercaDe from './pages/AcercaDe'
 import Contactos from './pages/Contactos'
 import GaleriaDeProductos from './pages/GaleriaDeProductos'
 import NotFound from './pages/NotFound'
+import RutaProtegida from './components/auth/RutaProtegida'
 
 
 
@@ -86,6 +87,12 @@ function App() {
         <Route path='/productos' element={<GaleriaDeProductos borrarProducto={handleDeleteFromCart} agregarCarrito={handleAddToCart} cart={cart} productos={productos} cargando={cargando} />} />
 
         <Route path='/contacto' element={<Contactos borrarProducto={handleDeleteFromCart} cart={cart} />} />
+        
+        <Route path='/admin' element={
+          <RutaProtegida isAuthenticated={false} esAdmin={false}>
+             {<h1>Admin</h1> /* // aca se reemplazara por el contenido de la pag admin */}
+          </RutaProtegida>    
+          } />
 
         <Route path='*' element={<NotFound />} />
 

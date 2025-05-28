@@ -4,7 +4,7 @@ import Productos from "./Productos";
 const ProductList = ({ productos, agregarCarrito }) => {
   return (
     <>
-      <div className="container mx-auto px-4 py-8">
+      <div className="container-fluid mx-auto px-4 py-8">
         <h2 className="text-2xl font-bold mb-6 text-center">
           Nuestros Productos
         </h2>

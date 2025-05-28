@@ -1,6 +1,5 @@
 import React from "react";
 
-
 const Cart = ({ cartItems, isOpen, onClose, borrarProducto }) => {
   return (
     <div
@@ -9,7 +8,7 @@ const Cart = ({ cartItems, isOpen, onClose, borrarProducto }) => {
       }`}
     >
       <div className="flex justify-between items-center px-4 py-3 border-b bg-gray-100">
-        <h2 className="text-lg font-bold text-gray-800">Carrito de Compras</h2>
+        <h2 className="text-lg font-bold text-gray-800">Tu Carrito</h2>
         <button
           onClick={onClose}
           className="text-gray-600 hover:text-red-500 text-xl focus:outline-none"
@@ -28,11 +27,20 @@ const Cart = ({ cartItems, isOpen, onClose, borrarProducto }) => {
                 key={item.id}
                 className="flex justify-between items-center text-gray-800"
               >
-                <div>
-                  <p className="font-medium">{item.title}</p>
-                  <p className="text-sm">
-                    ${item.price} – Cantidad: {item.quantity}
-                  </p>
+                <div className=" flex items-center">
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    className="w-10 h-10 object-cover mr-4"
+                  />
+                  <div className="max-w-[200px]">
+                    <p className="truncate overflow-hidden whitespace-nowrap text-sm font-medium">
+                      {item.title}
+                    </p>
+                    <p className="text-sm">
+                      ${item.price} – Cantidad: {item.quantity}
+                    </p>
+                  </div>
                 </div>
                 <button
                   onClick={() => borrarProducto(item)}
@@ -44,6 +52,9 @@ const Cart = ({ cartItems, isOpen, onClose, borrarProducto }) => {
             ))}
           </ul>
         )}
+      </div>
+      <div className="p-4 border-t bg-gray-100 absolute bottom-0 w-full">
+        <p>Total: ${cartItems.reduce((total, item) => total + (item.price * item.quantity), 0)}</p>
       </div>
     </div>
   );
