@@ -1,5 +1,5 @@
 import React from 'react'
-import Header from '../components/estaticos/Header'
+import Header from '../components/estaticos/Navbar'
 import Footer from '../components/estaticos/Footer'
 import ProductList from '../components/ProductList'
 import LoadingScreen from '../components/estaticos/LoadingScreen'

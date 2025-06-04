@@ -39,6 +39,13 @@ const Header = ({ cartItems, borrarProducto }) => {
               >
                 Contacto
               </Link>
+
+              <Link
+                to="/login"
+                className="text-gray-800 text-sm font-semibold hover:text-purple-600 mr-4"
+              >
+                <i className="fa fa-user"></i>
+              </Link>
               <button className="btnCart" onClick={() => setCartOpen(true)}>
                 <i className="fa-solid fa-cart-shopping hover:text-purple-600 cursor-pointer"></i>
               </button>
