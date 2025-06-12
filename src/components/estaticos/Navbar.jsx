@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Cart from "../Cart";
+import { CartContext } from "../../context/CartContext";
+import { useContext } from "react";
 
-const Header = ({ cartItems, borrarProducto }) => {
+const Header = () => {
   const [isCartOpen, setCartOpen] = useState(false);
+ 
 
   return (
     <header className="bg-gray-100 font-sans w-full m-0">
@@ -50,8 +53,7 @@ const Header = ({ cartItems, borrarProducto }) => {
                 <i className="fa-solid fa-cart-shopping hover:text-purple-600 cursor-pointer"></i>
               </button>
               <Cart
-                borrarProducto={borrarProducto}
-                cartItems={cartItems}
+                
                 isOpen={isCartOpen}
                 onClose={() => setCartOpen(false)}
               />

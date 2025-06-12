@@ -1,7 +1,11 @@
-import React from "react";
+import React, {useContext} from "react";
 import Productos from "./Productos";
+import { CartContext } from "../context/CartContext";
 
-const ProductList = ({ productos, agregarCarrito }) => {
+const ProductList = () => {
+
+ const {productos} = useContext(CartContext);
+  
   return (
     <>
       <div className="container-fluid mx-auto px-4 py-8">
@@ -14,7 +18,7 @@ const ProductList = ({ productos, agregarCarrito }) => {
             <Productos
               key={producto.id}
               producto={producto}
-              agregarCarrito={agregarCarrito}
+              
             />
           ))}
         </div>

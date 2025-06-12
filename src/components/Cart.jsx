@@ -1,6 +1,10 @@
 import React from "react";
+import { CartContext } from "../context/CartContext";
+import { useContext } from "react";
 
-const Cart = ({ cartItems, isOpen, onClose, borrarProducto }) => {
+const Cart = ({ isOpen, onClose }) => {
+   const {cart, handleDeleteFromCart } = useContext(CartContext);
+  
   return (
     <div
       className={`fixed top-0 right-0 w-72 h-full bg-white shadow-lg transform transition-transform duration-300 ease-in-out z-[999] overflow-y-auto ${
@@ -18,11 +22,11 @@ const Cart = ({ cartItems, isOpen, onClose, borrarProducto }) => {
       </div>
 
       <div className="p-4">
-        {cartItems.length === 0 ? (
+        {cart.length === 0 ? (
           <p className="text-red-500 text-sm">El carrito está vacío</p>
         ) : (
           <ul className="space-y-4">
-            {cartItems.map((item) => (
+            {cart.map((item) => (
               <li
                 key={item.id}
                 className="flex justify-between items-center text-gray-800"
@@ -43,7 +47,7 @@ const Cart = ({ cartItems, isOpen, onClose, borrarProducto }) => {
                   </div>
                 </div>
                 <button
-                  onClick={() => borrarProducto(item)}
+                  onClick={() => handleDeleteFromCart(item)}
                   className="text-red-500 hover:text-red-700"
                 >
                   <i className="fa-solid fa-trash"></i>
@@ -54,7 +58,7 @@ const Cart = ({ cartItems, isOpen, onClose, borrarProducto }) => {
         )}
       </div>
       <div className="p-4 border-t bg-gray-100 absolute bottom-0 w-full">
-        <p>Total: ${cartItems.reduce((total, item) => total + (item.price * item.quantity), 0)}</p>
+        <p>Total: ${cart.reduce((total, item) => total + (item.price * item.quantity), 0)}</p>
       </div>
     </div>
   );

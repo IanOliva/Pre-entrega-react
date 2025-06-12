@@ -23,7 +23,7 @@ export const AuthProvider = ({ children }) => {
     setToken(newToken);
     setIsAuthenticated(true);
 
-    const adminUsername = "johnd"; // definí aquí tu usuario admin
+    const adminUsername = "johnd"; 
     const adminStatus = username.toLowerCase() === adminUsername;
     setIsAdmin(adminStatus);
 

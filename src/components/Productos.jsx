@@ -1,8 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { Link } from "react-router-dom";
+import { CartContext } from "../context/CartContext";
 
 
-const Productos = ({ producto, agregarCarrito }) => {
+const Productos = ({ producto }) => {
   const [cantidad, setCantidad] = useState(1);
+     const {handleAddToCart} = useContext(CartContext);
+  
 
   const increase = () =>
     setCantidad((prev) => (prev < producto.stock ? prev + 1 : prev));
@@ -37,7 +41,7 @@ const Productos = ({ producto, agregarCarrito }) => {
       </div>
 
       <button
-        onClick={() => agregarCarrito(producto, cantidad)}
+        onClick={() => handleAddToCart(producto, cantidad)}
         className="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors duration-200"
       >
         Agregar al carrito

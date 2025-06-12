@@ -2,10 +2,10 @@ import React from "react";
 import Header from "../components/estaticos/Navbar";
 import Footer from "../components/estaticos/Footer";
 
-const AcercaDe = ({ cart, borrarProducto }) => {
+const AcercaDe = () => {
   return (
     <>
-      <Header borrarProducto={borrarProducto} cartItems={cart} />
+      <Header />
       <div class="bg-white">
         <header class="bg-purple-600 text-white text-center py-12">
           <h1 class="text-4xl font-bold mt-16">Sobre nosotros</h1>
@@ -14,18 +14,17 @@ const AcercaDe = ({ cart, borrarProducto }) => {
         <section class="text-center py-12 px-4">
           <h2 class="text-2xl font-bold">Mision & Vision</h2>
           <p class="mt-4 text-gray-700 max-w-2xl mx-auto">
-            Nuestra misión es proporcionar productos de alta calidad y servicios de
-            venta para satisfacer las necesidades de nuestros clientes.
+            Nuestra misión es proporcionar productos de alta calidad y servicios
+            de venta para satisfacer las necesidades de nuestros clientes.
           </p>
-          
         </section>
 
         <section class="bg-purple-600 text-white py-12 px-4">
           <h2 class="text-2xl font-bold text-center">Nuestra Visión</h2>
           <p class="mt-4 text-center max-w-2xl mx-auto">
-            Nuestra visión es ser reconocidos como la empresa líder en la venta de
-            productos de alta calidad y servicios de venta para satisfacer las
-            necesidades de nuestros clientes.
+            Nuestra visión es ser reconocidos como la empresa líder en la venta
+            de productos de alta calidad y servicios de venta para satisfacer
+            las necesidades de nuestros clientes.
           </p>
         </section>
 
@@ -107,8 +106,6 @@ const AcercaDe = ({ cart, borrarProducto }) => {
             </div>
           </div>
         </section> */}
-
-        
       </div>
       <Footer />
     </>

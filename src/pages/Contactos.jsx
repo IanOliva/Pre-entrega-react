@@ -2,17 +2,17 @@ import React from "react";
 import Header from "../components/estaticos/Navbar";
 import Footer from "../components/estaticos/Footer";
 
-const Contactos = ({ cart, borrarProducto }) => {
+const Contactos = () => {
   return (
     <>
-      <Header borrarProducto={borrarProducto} cartItems={cart} />
+      <Header />
       <section>
         <div class="py-8 lg:py-16 px-4 mx-auto max-w-screen-md">
           <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-center text-gray-900 dark:text-white">
             Contacto
           </h2>
           <p class="mb-8 lg:mb-16  text-center text-white sm:text-xl">
-           Tuviste alguna duda? No dudes en contactarnos
+            Tuviste alguna duda? No dudes en contactarnos
           </p>
 
           <form
@@ -81,7 +81,6 @@ const Contactos = ({ cart, borrarProducto }) => {
               </a>
             </p>
           </form>
-          
         </div>
       </section>
       <Footer />

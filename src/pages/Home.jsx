@@ -3,17 +3,16 @@ import Header from "../components/estaticos/Navbar";
 import Footer from "../components/estaticos/Footer";
 import ProductList from "../components/ProductList";
 import LoadingScreen from "../components/estaticos/LoadingScreen";
+import { CartContext } from "../context/CartContext";
+import { useContext } from "react";
 
-const Home = ({
-  cart,
-  productos,
-  cargando,
-  agregarCarrito,
-  borrarProducto,
-}) => {
+const Home = () => {
+  const { cargando } = useContext(CartContext);
+
   return (
     <>
-      <Header borrarProducto={borrarProducto} cartItems={cart} />
+      <Header />
+      
       <main>
         <h1 className="text-center mb-4 p-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl lg:text-6xl">
           Bienvenidos a mi Tienda
@@ -25,11 +24,7 @@ const Home = ({
           nisi eum, harum natus velit veritatis ea iste illum facere, ipsam
           modi!
         </p>
-        {cargando ? (
-          <LoadingScreen />
-        ) : (
-          <ProductList agregarCarrito={agregarCarrito} productos={productos} />
-        )}
+        {cargando ? <LoadingScreen /> : <ProductList />}
       </main>
 
       <Footer />

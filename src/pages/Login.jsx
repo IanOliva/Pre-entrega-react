@@ -3,6 +3,13 @@ import { CartContext } from "../context/CartContext";
 import { AuthContext } from "../context/AuthContext"; 
 import { useNavigate } from "react-router-dom";
 
+
+//credenciales para testear admin
+//username: johnd
+//password: m38rmF$
+
+
+
 const Login = () => {
   const {login} = useContext(AuthContext);
   const { setIsAuth } = useContext(CartContext);
