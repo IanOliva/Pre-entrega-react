@@ -1,7 +1,7 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import { CartContext } from "../context/CartContext";
-import { AuthContext } from "../context/AuthContext"; 
-import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext"; 
+
 
 
 //credenciales para testear admin
@@ -11,57 +11,14 @@ import { useNavigate } from "react-router-dom";
 
 
 const Login = () => {
-  const {login} = useContext(AuthContext);
   const { setIsAuth } = useContext(CartContext);
-  const navigate = useNavigate();
-  const [username, setusername] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState({});
-
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    let validationErrors = {};
-    if (!username) validationErrors.username = "El username es requerido";
-    if (!password) validationErrors.password = "La contraseña es requerida";
-
-    if (Object.keys(validationErrors).length > 0) {
-      setError(validationErrors);
-      return;
-    }
-
-    try {
-      const response = await fetch("https://fakestoreapi.com/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          username,
-          password,
-        }),
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        login(data.token, username);
-        
-
-        if (username.toLocaleLowerCase() === "johnd") {
-          console.log("admin detected");
-          navigate("/admin");
-        } else {
-          console.log("cliente detected");
-          navigate("/");
-        }
-      } else {
-        const data = await response.json();
-        setError(data);
-      }
-    } catch (error) {
-      console.log(error);
-      setError({ message: "Error al iniciar sesión" });
-    }
-  };
+  const {
+        error,
+        username,
+        setusername,
+        password,
+        setPassword,
+        handleLogin,} = useAuth()
 
   return (
     <div className="flex min-h-full flex-col justify-center py-12 sm:px-6 lg:px-8 ">
@@ -93,7 +50,7 @@ const Login = () => {
                 />
               </div>
               <div className="mt-2">
-                <p className="text-sm/6 text-red-600">{error.username}</p>
+                <p className="text-sm/6 text-red-600">{error}</p>
               </div>
             </div>
 
@@ -118,7 +75,7 @@ const Login = () => {
                 />
               </div>
               <div className="mt-2">
-                <p className="text-sm/6 text-red-600">{error.password}</p>
+                <p className="text-sm/6 text-red-600">{error}</p>
               </div>
             </div>
 

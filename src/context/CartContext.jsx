@@ -47,6 +47,7 @@ export const CartProvider = ({ children }) => {
       }
     } else {
       setCart([...cart, { ...product, quantity: cantidad }]);
+      toast.success(`${product.title} agregado al carrito`);
     }
   };
 

@@ -1,6 +1,7 @@
 import React from "react";
 import { CartContext } from "../context/CartContext";
 import { useContext } from "react";
+import {toast} from "react-toastify"
 
 const Cart = ({ isOpen, onClose }) => {
    const {cart, handleDeleteFromCart } = useContext(CartContext);

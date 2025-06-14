@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { CartContext } from "../context/CartContext";
 
 
+
 const Productos = ({ producto }) => {
   const [cantidad, setCantidad] = useState(1);
      const {handleAddToCart} = useContext(CartContext);
@@ -46,6 +47,7 @@ const Productos = ({ producto }) => {
       >
         Agregar al carrito
       </button>
+      
     </section>
   );
 };
