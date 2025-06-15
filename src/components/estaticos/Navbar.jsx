@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Cart from "../Cart";
-import { CartContext } from "../../context/CartContext";
-import { useContext } from "react";
+
+
 
 const Header = () => {
   const [isCartOpen, setCartOpen] = useState(false);

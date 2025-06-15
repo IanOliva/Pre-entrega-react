@@ -2,15 +2,11 @@ import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { CartContext } from "../context/CartContext";
 
-
-
 const Productos = ({ producto }) => {
   const [cantidad, setCantidad] = useState(1);
-     const {handleAddToCart} = useContext(CartContext);
-  
+  const { handleAddToCart } = useContext(CartContext);
 
-  const increase = () =>
-    setCantidad((prev) => (prev < producto.stock ? prev + 1 : prev));
+  const increase = () => setCantidad((prev) => (prev < producto.stock ? prev + 1 : prev));
   const decrease = () => setCantidad((prev) => (prev > 1 ? prev - 1 : 1));
 
   return (
@@ -19,7 +15,7 @@ const Productos = ({ producto }) => {
         <img src={producto.image} alt="" className="object-contain h-full" />
       </div>
 
-      <h3 className="text-lg font-semibold text-center mb-2">
+      <h3 className="text-lg font-semibold text-center mb-2 truncate w-full">
         {producto.title}
       </h3>
       <p className="text-green-600 font-bold text-lg mb-1">${producto.price}</p>
@@ -47,7 +43,12 @@ const Productos = ({ producto }) => {
       >
         Agregar al carrito
       </button>
-      
+      <Link
+        to={`/productos/${producto.id}`}
+        className="bg-purple-600 text-white px-4 py-2 mt-2 rounded-lg hover:bg-purple-700 transition-colors duration-200"
+      >
+        Ver detalles
+      </Link>
     </section>
   );
 };

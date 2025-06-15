@@ -43,7 +43,7 @@ export const CartProvider = ({ children }) => {
           )
         );
       } else {
-        alert("No hay más stock disponible");
+        toast.error("No hay mas stock disponible");
       }
     } else {
       setCart([...cart, { ...product, quantity: cantidad }]);
@@ -59,13 +59,13 @@ export const CartProvider = ({ children }) => {
             if (item.quantity > 1) {
               return { ...item, quantity: item.quantity - 1 };
             } else {
-              return null; // Si quantity es 1, marcamos para eliminar
+              return null; // Si quantity es 1, eliminar
             }
           } else {
             return item; // Si no es el producto, lo dejamos igual
           }
         })
-        .filter((item) => item !== null); // Quitamos los productos nulos
+        .filter((item) => item !== null); // Quita los productos nulos
     });
   };
 
