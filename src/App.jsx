@@ -5,7 +5,7 @@ import Home from "./pages/Home";
 import AcercaDe from "./pages/AcercaDe";
 import Contactos from "./pages/Contactos";
 import GaleriaDeProductos from "./pages/GaleriaDeProductos";
-import Login from "./pages/Login";
+
 import Admin from "./pages/Admin";
 import NotFound from "./pages/NotFound";
 import RutaProtegida from "./components/auth/RutaProtegida";
@@ -30,7 +30,6 @@ function App() {
 
       <Route path="/contacto" element={<Contactos />} />
 
-      <Route path="/login" element={<Login />} />
 
       <Route
         path="/admin"

@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Cart from "../Cart";
-
-
+import LoginModal from "../LoginModal";
+import { useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
 
 const Header = () => {
   const [isCartOpen, setCartOpen] = useState(false);
- 
+  const [isLoginOpen, setLoginOpen] = useState(false);
+  const { auth } = useContext(AuthContext);
 
   return (
     <header className="bg-gray-100 font-sans w-full m-0">
@@ -43,20 +45,17 @@ const Header = () => {
                 Contacto
               </Link>
 
-              <Link
-                to="/login"
+              <button
+                onClick={() => setLoginOpen(true)}
                 className="text-gray-800 text-sm font-semibold hover:text-purple-600 mr-4"
               >
                 <i className="fa fa-user"></i>
-              </Link>
+              </button>
               <button className="btnCart" onClick={() => setCartOpen(true)}>
                 <i className="fa-solid fa-cart-shopping hover:text-purple-600 cursor-pointer"></i>
               </button>
-              <Cart
-                
-                isOpen={isCartOpen}
-                onClose={() => setCartOpen(false)}
-              />
+              <LoginModal isOpen={isLoginOpen} onRequestClose={() => setLoginOpen(false)} />
+              <Cart isOpen={isCartOpen} onClose={() => setCartOpen(false)} />
             </div>
           </div>
         </div>
