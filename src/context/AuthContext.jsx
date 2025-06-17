@@ -11,15 +11,14 @@ export const AuthProvider = ({ children }) => {
   const [isAdmin, setIsAdmin] = useState(false);
   const [token, setToken] = useState(null);
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
+  const handleLogin = async () => {
     let validationErrors = {};
     if (!username) validationErrors.username = "El username es requerido";
     if (!password) validationErrors.password = "La contraseña es requerida";
 
     if (Object.keys(validationErrors).length > 0) {
       setError(validationErrors);
-      return;
+      return false;
     }
 
     try {
@@ -45,13 +44,16 @@ export const AuthProvider = ({ children }) => {
           console.log("cliente detected");
           navigate("/");
         }
+        return true;
       } else {
         const data = await response.json();
         setError(data);
+        return false;
       }
     } catch (error) {
       console.log(error);
       setError({ message: "Error al iniciar sesión" });
+      return false;
     }
   };
 
@@ -101,6 +103,8 @@ export const AuthProvider = ({ children }) => {
         password,
         setPassword,
         handleLogin,
+        error,
+        setError,
       }}
     >
       {children}

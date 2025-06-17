@@ -8,10 +8,10 @@ import { AuthContext } from "../../context/AuthContext";
 const Header = () => {
   const [isCartOpen, setCartOpen] = useState(false);
   const [isLoginOpen, setLoginOpen] = useState(false);
-  const { auth } = useContext(AuthContext);
+  const { login } = useContext(AuthContext);
 
   return (
-    <header className="bg-gray-100 font-sans w-full m-0">
+    <header className="bg-gray-100 font-sans w-full m-0 sticky top-0">
       <nav className="bg-white shadow">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between py-4">
