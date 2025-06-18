@@ -1,36 +1,23 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import LoadingScreen from "../components/estaticos/LoadingScreen";
-import FormularioProducto from "../components/FormularioProducto";
-import FormularioEdicion from "../components/FormularioEdicion";
 import { AuthContext } from "../context/AuthContext";
-import { toast } from "react-toastify";
-import Swal from "sweetalert2";
+import { useAdmin } from "../context/AdminContext";
+import AddProductModal from "../components/AddProductModal";
 
 const Admin = () => {
   const { logout } = useContext(AuthContext);
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
-  const [open, setOpen] = useState(false);
+  const {
+    products,
+    loading,
+    error,
+    agregarProducto,
+    editarProducto,
+    eliminarProducto,
+  } = useAdmin();
+
+  const [openAddProduct, setOpenAddProduct] = useState(false);
   const [productoSeleccionado, setProductoSeleccionado] = useState(null);
-  const [openEdicion, setOpenEdicion] = useState(false);
-
-  // const navigate = useNavigate();
-
-  useEffect(() => {
-    fetch("https://fakestoreapi.com/products")
-      .then((res) => res.json())
-      .then((data) => {
-        setProducts(data);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.log("Error", error);
-        setLoading(false);
-        setError(true);
-      });
-  }, []);
 
   if (loading) return <LoadingScreen />;
   if (error)
@@ -39,92 +26,6 @@ const Admin = () => {
         Error al cargar productos
       </p>
     );
-
-  const agregarProducto = async (producto) => {
-    try {
-      const response = await fetch("https://fakestoreapi.com/products", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(producto),
-      });
-
-      if (!response.ok) {
-        throw new Error("Error al agregar producto");
-      }
-
-      const data = await response.json();
-      toast.success("Producto agregado correctamente");
-      setProducts([...products, data]);
-      setOpen(false);
-    } catch (error) {
-      console.log("Error", error);
-      setError(true);
-    }
-  };
-
-  const editarProducto = async (id, producto) => {
-    try {
-      const response = await fetch(`https://fakestoreapi.com/products/${id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(producto),
-      });
-
-      if (!response.ok) {
-        throw new Error("Error al editar producto");
-      }
-
-      const data = await response.json();
-      toast.success("Producto editado correctamente");
-      setOpenEdicion(false);
-      setProductoSeleccionado(null);
-      setProducts(
-        products.map((product) => (product.id === id ? data : product))
-      );
-
-      setOpen(false);
-    } catch (error) {
-      console.log("Error", error);
-      setError(true);
-    }
-  };
-
-  const eliminarProducto = async (id) => {
-    const confirmDelete = await Swal.fire({
-      title: "¿Estás seguro de eliminar este producto?",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Si, eliminar",
-      cancelButtonText: "Cancelar",
-    });
-
-    if (confirmDelete.isConfirmed) {
-      try {
-        const response = await fetch(
-          `https://fakestoreapi.com/products/${id}`,
-          {
-            method: "DELETE",
-          }
-        );
-
-        if (!response.ok) {
-          throw new Error("Error al eliminar producto");
-        }
-
-        toast.success("Producto eliminado correctamente");
-        setProducts(products.filter((product) => product.id !== id));
-      } catch (error) {
-        toast.error("Error al eliminar el producto: " + error.message);
-        setError(true);
-      }
-    }
-  };
 
   return (
     <>
@@ -149,18 +50,20 @@ const Admin = () => {
         <div className="bg-gray-200 mb-4 border border-gray-300 rounded-lg flex justify-between items-center">
           <h2 className="text-2xl font-bold p-4">Productos</h2>
           <button
-            onClick={() => setOpen(true)}
+            onClick={() => {
+              setProductoSeleccionado(null), setOpenAddProduct(true);
+            }}
             className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 m-2 rounded"
           >
             <i className="fa fa-plus mr-2"></i>Crear producto
           </button>
-          {open && <FormularioProducto onAgregar={agregarProducto} />}
-          {openEdicion && (
-            <FormularioEdicion
-              productoSeleccionado={productoSeleccionado}
-              onActualizar={editarProducto}
-            />
-          )}
+          <AddProductModal
+            isOpen={openAddProduct}
+            onRequestClose={() => setOpenAddProduct(false)}
+            onAgregar={agregarProducto}
+            onActualizar={editarProducto}
+            productoSeleccionado={productoSeleccionado}
+          />
         </div>
 
         <table className="min-w-full bg-white border border-gray-200 rounded-lg overflow-hidden shadow-sm">
@@ -195,9 +98,8 @@ const Admin = () => {
                 <td className="px-6 py-4 flex space-x-2">
                   <button
                     onClick={() => {
-                      setOpenEdicion(true);
+                      setOpenAddProduct(true);
                       setProductoSeleccionado(producto);
-                      console.log(producto);
                     }}
                     className="px-3 py-1 text-sm text-white bg-yellow-500 rounded hover:bg-yellow-600"
                   >
