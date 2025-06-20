@@ -1,65 +1,113 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import Cart from "../Cart";
 import LoginModal from "../LoginModal";
-import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 
 const Header = () => {
   const [isCartOpen, setCartOpen] = useState(false);
   const [isLoginOpen, setLoginOpen] = useState(false);
-  const { login } = useContext(AuthContext);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { isAuthenticated, logout } = useContext(AuthContext);
+
+  const handleLinkClick = () => {
+    setIsMenuOpen(false);
+  };
+
+  const handleLogout = () => {
+    logout();
+    setIsMenuOpen(false);
+  };
+
+  const handleLoginOpen = () => {
+    setLoginOpen(true);
+    setIsMenuOpen(false);
+  };
 
   return (
-    <header className="bg-gray-100 font-sans w-full m-0 sticky top-0">
-      <nav className="bg-white shadow">
-        <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between py-4">
-            <div>
-              <i className="fa fa-home"> React Ecommerce</i>
-            </div>
+    <header className="bg-white shadow sticky top-0 z-50">
+      <nav className="container mx-auto px-4 py-4 flex justify-between items-center">
+        <div className="text-xl font-bold text-purple-700 flex items-center gap-2">
+          <i className="fa fa-home"></i> React Ecommerce
+        </div>
 
-            <div className="hidden sm:flex sm:items-center">
-              <Link
-                to="/"
-                className="text-gray-800 text-sm font-semibold hover:text-purple-600 mr-4"
-              >
-                Inicio
-              </Link>
-              <Link
-                to="/acercade"
-                className="text-gray-800 text-sm font-semibold hover:text-purple-600 mr-4"
-              >
-                Sobre nosotros
-              </Link>
-              <Link
-                to="/productos"
-                className="text-gray-800 text-sm font-semibold hover:text-purple-600 mr-4"
-              >
-                Galeria de productos
-              </Link>
-              <Link
-                to="/contacto"
-                className="text-gray-800 text-sm font-semibold hover:text-purple-600 mr-4"
-              >
-                Contacto
-              </Link>
+        {/* Botón hamburguesa */}
+        <button
+          className="sm:hidden text-gray-800 text-2xl"
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+        >
+          <i className="fa fa-bars"></i>
+        </button>
 
-              <button
-                onClick={() => setLoginOpen(true)}
-                className="text-gray-800 text-sm font-semibold hover:text-purple-600 mr-4"
-              >
-                <i className="fa fa-user"></i>
-              </button>
-              <button className="btnCart" onClick={() => setCartOpen(true)}>
-                <i className="fa-solid fa-cart-shopping hover:text-purple-600 cursor-pointer"></i>
-              </button>
-              <LoginModal isOpen={isLoginOpen} onRequestClose={() => setLoginOpen(false)} />
-              <Cart isOpen={isCartOpen} onClose={() => setCartOpen(false)} />
-            </div>
-          </div>
+        {/* Menú de navegación */}
+        <div
+          className={`${
+            isMenuOpen ? "flex" : "hidden"
+          } sm:flex flex-col sm:flex-row gap-4 items-center`}
+        >
+          <Link
+            to="/"
+            onClick={handleLinkClick}
+            className="text-gray-800 text-sm font-semibold hover:text-purple-600"
+          >
+            Inicio
+          </Link>
+          <Link
+            to="/acercade"
+            onClick={handleLinkClick}
+            className="text-gray-800 text-sm font-semibold hover:text-purple-600"
+          >
+            Sobre nosotros
+          </Link>
+          <Link
+            to="/productos"
+            onClick={handleLinkClick}
+            className="text-gray-800 text-sm font-semibold hover:text-purple-600"
+          >
+            Galería de productos
+          </Link>
+          <Link
+            to="/contacto"
+            onClick={handleLinkClick}
+            className="text-gray-800 text-sm font-semibold hover:text-purple-600"
+          >
+            Contacto
+          </Link>
+
+          {isAuthenticated ? (
+            <button
+              onClick={handleLogout}
+              className="text-gray-800 text-sm font-semibold hover:text-red-500"
+              title="Cerrar sesión"
+            >
+              <i className="fa fa-sign-out"></i>
+            </button>
+          ) : (
+            <button
+              onClick={handleLoginOpen}
+              className="text-gray-800 text-sm font-semibold hover:text-purple-600"
+              title="Iniciar sesión"
+            >
+              <i className="fa fa-user"></i>
+            </button>
+          )}
+
+          <button
+            onClick={() => {
+              setCartOpen(true);
+              setIsMenuOpen(false);
+            }}
+            className="text-gray-800 hover:text-purple-600"
+            title="Carrito"
+          >
+            <i className="fa-solid fa-cart-shopping"></i>
+          </button>
         </div>
       </nav>
+
+      {/* Modales */}
+      <LoginModal isOpen={isLoginOpen} onRequestClose={() => setLoginOpen(false)} />
+      <Cart isOpen={isCartOpen} onClose={() => setCartOpen(false)} />
     </header>
   );
 };

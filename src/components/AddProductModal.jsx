@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Modal from "react-modal";
-import ClipLoader from "react-spinners/ClipLoader";
+import { PuffLoader } from "react-spinners";
 
 Modal.setAppElement("#root");
 
@@ -45,12 +45,27 @@ const ProductModal = ({
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const camposCompletos = Object.values(producto).every((val) => val !== "");
-
-    if (!camposCompletos) {
-      setError(true);
-      return;
+    let validationErrors = {};
+    if (!producto.title) validationErrors.title = "El título es requerido";
+    if (!producto.price){
+      validationErrors.price = "El precio es requerido";
+    } else if (isNaN(producto.price) || producto.price < 1) {
+      validationErrors.price = "El precio debe ser un número mayor o igual a cero";
     }
+    
+    if (!producto.description){
+      validationErrors.description = "La descripción es requerida";
+    } else if (producto.description.length < 10) {
+      validationErrors.description = "La descripción debe tener al menos 10 caracteres";
+    }
+    if (!producto.category) validationErrors.category = "La categoría es requerida";
+    if (!producto.image) validationErrors.image = "La imagen es requerida";
+
+    if (Object.keys(validationErrors).length > 0) {
+      setError(validationErrors);
+      return false;
+    }
+   
 
     setLoading(true);
 
@@ -87,20 +102,52 @@ const ProductModal = ({
         onSubmit={handleSubmit}
         className="bg-white p-6 rounded-lg shadow-md space-y-4 border border-gray-200"
       >
-        {["title", "price", "description", "category", "image"].map((field) => (
-          <input
-            key={field}
-            type="text"
-            name={field}
-            placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
-            value={producto[field]}
-            onChange={handleChange}
-            className="w-full px-4 py-2 border border-gray-300 rounded-md"
-          />
-        ))}
+        <input
+          type="text"
+          placeholder="Título"
+          name="title"
+          value={producto.title}
+          onChange={handleChange}
+          className="w-full p-2 border border-gray-300 rounded-md"
+        />
+        <input
+          type="number"
+          placeholder="Precio"
+          name="price"
+          
+          value={producto.price}
+          onChange={handleChange}
+          className="w-full p-2 border border-gray-300 rounded-md"
+        />
+        <input
+          type="text"
+          placeholder="Descripción"
+          name="description"
+          
+          value={producto.description}
+          onChange={handleChange}
+          className="w-full p-2 border border-gray-300 rounded-md"
+        />
+        <input
+          type="text"
+          placeholder="Categoría"
+          name="category"
+          value={producto.category}
+          onChange={handleChange}
+          className="w-full p-2 border border-gray-300 rounded-md"
+        />
+        <input
+          type="text"
+          placeholder="URL de la imagen"
+          name="image"
+         
+          value={producto.image}
+          onChange={handleChange}
+          className="w-full p-2 border border-gray-300 rounded-md"
+        />
 
         {error && (
-          <p className="text-red-500 text-sm">Todos los campos son obligatorios</p>
+          <p className="text-red-500 text-sm"> {Object.values(error).join(", ")}</p>
         )}
 
         <button
@@ -110,7 +157,7 @@ const ProductModal = ({
         >
           {loading ? (
             <>
-              <ClipLoader color="#ffffff" size={20} />
+              <PuffLoader color="#ffffff" size={20} />
               Cargando...
             </>
           ) : productoSeleccionado ? (

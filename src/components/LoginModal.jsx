@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Modal from "react-modal";
 import { useAuth } from "../context/AuthContext";
-import ClipLoader from "react-spinners/ClipLoader";
+import { PuffLoader } from "react-spinners";
 
 Modal.setAppElement("#root"); // Esto es importante para accesibilidad
 
@@ -66,7 +66,7 @@ const LoginModal = ({ isOpen, onRequestClose }) => {
         >
           {loading ? (
             <>
-              <ClipLoader color="#ffffff" size={20} />
+              <PuffLoader color="#ffffff" size={20} />
               <span>Cargando...</span>
             </>
           ) : (

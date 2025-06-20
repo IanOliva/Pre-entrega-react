@@ -6,107 +6,31 @@ const AcercaDe = () => {
   return (
     <>
       <Header />
-      <div className="bg-white">
-        <header className="bg-purple-600 text-white text-center py-12">
-          <h1 className="text-4xl font-bold mt-16">Sobre nosotros</h1>
-        </header>
+      <main className="bg-gradient-to-br from-purple-50 to-white py-20 px-4 text-center">
+        <h1 className="text-5xl md:text-6xl font-extrabold mb-6 text-gray-800 leading-tight">
+          Sobre <span className="text-purple-600">Nosotros</span>
+        </h1>
 
-        <section className="text-center py-12 px-4">
-          <h2 className="text-2xl font-bold">Mision & Vision</h2>
-          <p className="mt-4 text-gray-700 max-w-2xl mx-auto">
-            Nuestra misión es proporcionar productos de alta calidad y servicios
-            de venta para satisfacer las necesidades de nuestros clientes.
-          </p>
+        <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto mb-12">
+          En nuestra tienda nos dedicamos a ofrecer productos de alta calidad con atención personalizada.
+          Nuestro compromiso es brindar una experiencia de compra simple, segura y satisfactoria.
+        </p>
+
+        <section className="max-w-4xl mx-auto grid md:grid-cols-2 gap-8">
+          <div className="bg-white shadow-lg rounded-xl p-6 border border-purple-100 hover:shadow-xl transition">
+            <h2 className="text-2xl font-bold text-purple-600 mb-4">Misión</h2>
+            <p className="text-gray-700">
+              Proporcionar productos cuidadosamente seleccionados que mejoren el día a día de nuestros clientes, con un enfoque en calidad, servicio y confianza.
+            </p>
+          </div>
+          <div className="bg-white shadow-lg rounded-xl p-6 border border-purple-100 hover:shadow-xl transition">
+            <h2 className="text-2xl font-bold text-purple-600 mb-4">Visión</h2>
+            <p className="text-gray-700">
+              Ser la tienda de referencia en comercio digital, reconocida por la excelencia en atención al cliente y la innovación en nuestros servicios.
+            </p>
+          </div>
         </section>
-
-        <section className="bg-purple-600 text-white py-12 px-4">
-          <h2 className="text-2xl font-bold text-center">Nuestra Visión</h2>
-          <p className="mt-4 text-center max-w-2xl mx-auto">
-            Nuestra visión es ser reconocidos como la empresa líder en la venta
-            de productos de alta calidad y servicios de venta para satisfacer
-            las necesidades de nuestros clientes.
-          </p>
-        </section>
-
-        {/* <section className="text-center py-12 px-4">
-          <h2 className="text-2xl font-bold">
-            Committed To Your Health And Happiness
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 mt-8">
-            <div className="p-4 shadow-lg rounded-lg bg-green-100 hover:bg-green-200 transition-colors">
-              <h3 className="text-xl font-bold">Book Appointment</h3>
-            </div>
-            <div className="p-4 shadow-lg rounded-lg bg-green-100 hover:bg-green-200 transition-colors">
-              <h3 className="text-xl font-bold">Informed Staff</h3>
-            </div>
-            <div className="p-4 shadow-lg rounded-lg bg-green-100 hover:bg-green-200 transition-colors">
-              <h3 className="text-xl font-bold">Total Health</h3>
-            </div>
-            <div className="p-4 shadow-lg rounded-lg bg-green-100 hover:bg-green-200 transition-colors">
-              <h3 className="text-xl font-bold">Get Consultation</h3>
-            </div>
-          </div>
-        </section> */}
-
-        {/* <section className="bg-green-500 text-white text-center py-12 px-4">
-          <h2 className="text-2xl font-bold">Patient Testimonials</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 mt-8 max-w-5xl mx-auto">
-            <div className="p-4 shadow-lg rounded-lg bg-green-600 hover:bg-green-500 transition-colors">
-              <p>
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin
-                sit amet tristique mi."
-              </p>
-              <h3 className="mt-4 font-bold">- Patient A</h3>
-            </div>
-            <div className="p-4 shadow-lg rounded-lg bg-green-600 hover:bg-green-500 transition-colors">
-              <p>
-                "Nullam ac augue eget diam posuere vehicula. Vivamus quis nulla
-                ac justo euismod posuere."
-              </p>
-              <h3 className="mt-4 font-bold">- Patient B</h3>
-            </div>
-            <div className="p-4 shadow-lg rounded-lg bg-green-600 hover:bg-green-500 transition-colors">
-              <p>
-                "Fusce tincidunt, arcu nec vestibulum tincidunt, eros massa
-                ullamcorper urna."
-              </p>
-              <h3 className="mt-4 font-bold">- Patient C</h3>
-            </div>
-          </div>
-        </section> */}
-
-        {/* <section className="text-center py-12 px-4 w-full">
-          <h2 className="text-2xl font-bold">
-            Get Answer To Your Most Asked Questions
-          </h2>
-          <div className="mt-8">
-            <div className="p-4 border rounded-lg shadow-md transition transform hover:scale-100 scale-90">
-              <h3 className="text-xl font-bold">
-                How do I make an appointment online?
-              </h3>
-              <p className="mt-2 text-gray-700">
-                You can book an appointment online through our website or mobile
-                app.
-              </p>
-            </div>
-            <div className="p-4 border rounded-lg shadow-md transition transform hover:scale-100 scale-90 mt-4">
-              <h3 className="text-xl font-bold">
-                What types of medical tests do you offer?
-              </h3>
-              <p className="mt-2 text-gray-700">
-                We offer a wide range of medical tests including blood tests,
-                imaging, and more.
-              </p>
-            </div>
-            <div className="p-4 border rounded-lg shadow-md transition transform hover:scale-100 scale-90 mt-4">
-              <h3 className="text-xl font-bold">Do you accept insurance plans?</h3>
-              <p className="mt-2 text-gray-700">
-                Yes, we accept most major insurance plans.
-              </p>
-            </div>
-          </div>
-        </section> */}
-      </div>
+      </main>
       <Footer />
     </>
   );

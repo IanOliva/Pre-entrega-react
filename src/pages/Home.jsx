@@ -1,31 +1,43 @@
-import React from "react";
+import React, { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import Header from "../components/estaticos/Navbar";
 import Footer from "../components/estaticos/Footer";
-import ProductList from "../components/ProductList";
 import LoadingScreen from "../components/estaticos/LoadingScreen";
 import { CartContext } from "../context/CartContext";
-import { useContext } from "react";
 
 const Home = () => {
   const { cargando } = useContext(CartContext);
+  const navigate = useNavigate();
+
+  const irAProductos = () => {
+    navigate("/productos");
+  };
 
   return (
     <>
       <Header />
-      
-      <main>
-        <h1 className="text-center mb-4 p-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl lg:text-6xl">
-          Bienvenidos a mi Tienda
-        </h1>
 
-        <p className="text-center mb-8 text-lg font-normal lg:text-xl sm:px-16 lg:px-48">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit
-          voluptate illum molestias, voluptates dolorem rerum. Alias tempore ut
-          nisi eum, harum natus velit veritatis ea iste illum facere, ipsam
-          modi!
-        </p>
-        {cargando ? <LoadingScreen /> : <ProductList />}
-      </main>
+      {cargando ? (
+        <LoadingScreen />
+      ) : (
+        <main className="bg-gradient-to-br from-purple-50 to-white py-20 px-4 text-center">
+          <h1 className="text-5xl md:text-6xl font-extrabold mb-6 text-gray-800 leading-tight">
+            Bienvenidos a <span className="text-purple-600">Mi Tienda</span>
+          </h1>
+
+          <p className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto mb-10">
+            Descubrí los mejores productos al mejor precio. Elegí, comprá y
+            recibí todo desde la comodidad de tu casa.
+          </p>
+
+          <button
+            onClick={irAProductos}
+            className="bg-purple-600 hover:bg-purple-700 text-white text-lg font-semibold py-3 px-8 rounded-full shadow-lg transition duration-300"
+          >
+            Ver productos
+          </button>
+        </main>
+      )}
 
       <Footer />
     </>
